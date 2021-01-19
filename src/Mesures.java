@@ -71,7 +71,11 @@ public class Mesures {
             System.out.println("la distance moyenne pour le reseau aléatoire est: "
                     + Math.log(noeuds) / Math.log(Toolkit.averageDegree(g2)));
 
-             suiteDuProgramme(mesure, noeuds, degreMoyen);
+             //suiteDuProgramme(mesure, noeuds, degreMoyen);
+             
+              /* PROPAGATION DANS UN RESEAU */
+            //suiteDuPrograme2(mesure, graph, noeuds, degreMoyen);
+
         }
 
     private static void suiteDuProgramme(Mesures mesure, int noeuds, double degMoyen) throws IOException {
@@ -99,6 +103,105 @@ public class Mesures {
         Graph gBBA = mesure.reseauBarabasiAlbert(noeuds, degMoyen);
     }
 
+private static void suiteDuPrograme2(Mesures mesure, Graph graph, int noeuds, double degreMoyen) {
+        Propagation propagation = new Propagation();
+        Graph graph2 = mesure.reseauAleatoire(noeuds, degreMoyen);
+
+        double beta = 1.0/7.0;
+        double mu = 1.0/14.0;
+        System.out.println("Taux de propagation = "+ beta/mu);
+        System.out.println("Le seuil épidémique du réseau de collaborationest est : "+
+                degreMoyen /propagation.moyenneCarre(graph));
+        System.out.println("Le seuil épidémique du réseau aléatoire est :"
+                + Toolkit.averageDegree(graph2)/propagation.moyenneCarre(graph2));
+
+        // Simulation 1er cas on ne fait rien pour  empêcher l'épidémie
+/*
+            propagation.desinfectNode(graph);
+            propagation.infecteRandomNode(graph);
+            propagation.propager(graph,1.0/7.0,1.0/14.0);
+            propagation.generateData("resprop/Cas1");
+            Propagation.reinitialisation();
+
+            // Simulation 2e cas Immunisation aléatoire
+            propagation.infecteRandomNode(graph);
+            Propagation.immunisationAleatoire(graph);
+            Graph gs2 = propagation.propager(graph,1.0/7.0,1.0/14.0);
+            propagation.generateData("resprop/Cas2");
+            Graph gs2_2 = Propagation.removeNodeInfect(gs2);
+            System.out.println("Le seuil épidémique du réseau avec stratégies d'immunisation aléatoire est : "
+                    + Toolkit.averageDegree(gs2_2)/propagation.moyenneCarre(gs2_2));
+            Propagation.reinitialisation();
+
+
+            // Simulation 3e cas Immunisation sélective
+            propagation.infecteRandomNode(graph);
+            Propagation.immunisationSelective(graph);
+            Graph gs3 =  propagation.propager(graph,1.0/7.0,1.0/14.0);
+            propagation.generateData("resprop/Cas3");
+            Graph gs3_3 = Propagation.removeNodeInfect(gs3);
+            System.out.println("Le seuil épidémique du réseau avec stratégies d'immunisation sélective  est : "
+                    + Toolkit.averageDegree(gs3_3)/propagation.moyenneCarre(gs3_3));
+
+
+            // Comparaison réseau aléatoire et réseau Barabasi-albert
+            Graph g_A = mesure.reseauAleatoire(noeuds,50);
+            System.out.println("taille du graphe aléatoire " + g_A.getNodeCount());
+            Graph g_BA = mesure.reseauBarabasiAlbert(noeuds, degreMoyen);
+
+            // 1er Cas on ne fait rien pour empêcher l'épidémie
+            propagation.desinfectNode(g_A);
+            propagation.infecteRandomNode(g_A);
+            propagation.propager(g_A,beta,mu);
+            propagation.generateData("resprop/Cas1Aleatoire");
+            Propagation.reinitialisation();
+
+            propagation.desinfectNode(g_BA);
+            propagation.infecteRandomNode(g_BA);
+            propagation.propager(g_BA,beta,mu);
+            propagation.generateData("resprop/cas1Barabasi-albert");
+            Propagation.reinitialisation();
+
+            //2e cas Immunisation aléatoire
+            propagation.infecteRandomNode(g_A);
+            Propagation.immunisationAleatoire(g_A);
+            Graph gA2 = propagation.propager(g_A,beta,mu);
+            propagation.generateData("resprop/Cas2Aleatoire");
+            Graph gA2_2 = Propagation.removeNodeInfect(gA2);
+            System.out.println("Le seuil épidémique du réseau avec stratégies d'immunisation aléatoire est : "
+                    + Toolkit.averageDegree(gA2_2)/propagation.moyenneCarre(gA2_2));
+            Propagation.reinitialisation();
+
+            propagation.infecteRandomNode(g_BA);
+            Propagation.immunisationAleatoire(g_BA);
+            Graph gBA2 = propagation.propager(g_BA,beta,mu);
+            propagation.generateData("resprop/cas2Barabasi-albert");
+            Graph gBA2_2 = Propagation.removeNodeInfect(gBA2);
+            System.out.println("Le seuil épidémique du réseau avec stratégies d'immunisation aléatoire est : "
+                    + Toolkit.averageDegree(gBA2_2)/propagation.moyenneCarre(gBA2_2));
+            Propagation.reinitialisation();
+
+            //3e cas Immunisation sélective
+            //Graph gA3 = mesure.reseauAleatoire(100,3);
+            propagation.infecteRandomNode(g_A);
+            Propagation.immunisationSelective(g_A);
+            Graph gA3 =  propagation.propager(g_A,beta,mu);
+            propagation.generateData("resprop/Cas3Aleatoire");
+            Graph gA3_3 = Propagation.removeNodeInfect(gA3);
+            System.out.println("Le seuil épidémique du réseau avec stratégies d'immunisation sélective est : "
+                    + Toolkit.averageDegree(gA3_3)/propagation.moyenneCarre(gA3_3));
+            Propagation.reinitialisation();
+
+            propagation.infecteRandomNode(g_BA);
+            Propagation.immunisationSelective(g_BA);
+            Graph gBA3 =  propagation.propager(g_BA,beta,mu);
+            propagation.generateData("resprop/cas3Barabasi-albert");
+            Graph gBA3_3 = Propagation.removeNodeInfect(gBA3);
+            System.out.println("Le seuil épidémique du réseau avec stratégies d'immunisation sélective  est : "
+                    + Toolkit.averageDegree(gBA3_3)/propagation.moyenneCarre(gBA3_3));
+*/
+    }
+    
     //methode pour générer un reseau aleatoire
     public Graph reseauAleatoire(int taille, double degre) {
         Graph graph = new SingleGraph("Graphe aléatoire");
