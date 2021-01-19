@@ -54,6 +54,12 @@ Avec le même nombre de nœuds et degré moyen précédemment calculer on obtien
 on remarque que le degré moyen est plus elevé dans le reseau Barabasi-Albert par ce que dans ce type de reseau les noeuds qui ont un degré plus important recevoivent plus de liens.
 Contrairement au réseau aleatoire les deux autres sont connexes.
 
+Propagation
+ Le seuil épidémique par définition est lambda = beta/mu
+beta =1/7 un individu envoie en moyenne un mail par semaine à chacun de ses collabora-teurs
+mu =1/14 un individu met à jour son anti-virus en moyenne deux fois par mois(Pour 1 mois =28 jours)
+- Taux de propagation = 2.0
+
 Conclusion 
 
 Ce TP m’a permis de me familiariser avec les outils nécessaires à la programmation de réseau (aléatoire et Barabasi-Albert) et de voir les quelques différences qui peuvent exister. 
