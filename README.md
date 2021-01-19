@@ -59,6 +59,45 @@ Propagation
 beta =1/7 un individu envoie en moyenne un mail par semaine à chacun de ses collabora-teurs
 mu =1/14 un individu met à jour son anti-virus en moyenne deux fois par mois(Pour 1 mois =28 jours)
 - Taux de propagation = 2.0
+- - Le seuil épidémique du réseau de collaboration est : 0.04598472436222584
+- Le seuil épidémique du réseau aléatoire est : 0.13124949621603624
+  
+![comparaison](resprop/CourbesDesCas.PNG)
+
+On remarque que la courbe de l’immunisation sélective est en bas des deux autres
+donc a moins de cas d’infection que les deux autres méthodes
+
+-1er Cas on ne fait rien pour empêcher l'épidémie
+ - 316645/317087 infectés pour le réseau aléatoire
+ - 317082/317082 infectés pour le réseau Barabasi-albert
+   
+![comparaison1](resprop/cas1.PNG)
+
+-2e Cas Immunisation aléatoire
+ - 151958/317082 infectés pour le réseau aléatoire
+ - Le seuil épidémique du réseau avec stratégies d'immunisation aléatoire est : 0.2243705316895631
+ - 139607/317082 infectés pour le réseau Barabasi-albert
+ - Le seuil épidémique du réseau avec stratégies d'immunisation aléatoire est : 0.0596716106803383
+
+![comparaison2](resprop/cas2.PNG)
+
+-3e cas Immunisation sélective
+
+On remarque un problème lorsqu'on génère un graphe aléatoire de taille 317082 
+avec un dégré moyen égale à 6, tous les noeuds ne sont pas liés et la méthode d'immunisation 
+selective rencontre quelques problèmes d'exception.
+donc ici, on par avec un graphe aléatoire avec un dégré moyen de 50 et un graphe de barabasi avec 
+un degré moyen de 6 (dégré moyen du premmier graphe)
+
+- 124736/317131 infectés pour le réseau aléatoire
+- Le seuil épidémique du réseau avec stratégies d'immunisation sélective est : 0.032536494292978474
+- 98442/173989 infectés pour le réseau BBA
+- Le seuil épidémique du réseau avec stratégies d'immunisation sélective est : 0.24718842671967695
+
+![comparaison3](resprop/cas3.PNG)
+
+On remarque d’après analyse des trois cas de figure que le cas d’immunisation sélective est à une
+courbe plus intéressante (elles croient moins que les deux autres donc moins d’infections )
 
 Conclusion 
 
