@@ -97,11 +97,7 @@ public class Mesures {
         //7-Question bonus
         System.out.println("le Coeficient de clustering est=  " + Toolkit.averageClusteringCoefficient(mesure.varianteMethodeCopie(100, 4, 0.9)));
         mesure.distancesReseau(reseauAl, 100);
-        // Comparaison réseau aléatoire et réseau Barabasi-albert
-        Graph gA = mesure.reseauAleatoire(noeuds, 50);
-        System.out.println("taille du graphe aléatoire " + gA.getNodeCount());
-        Graph gBBA = mesure.reseauBarabasiAlbert(noeuds, degMoyen);
-    }
+       
 
 private static void suiteDuPrograme2(Mesures mesure, Graph graph, int noeuds, double degreMoyen) {
         Propagation propagation = new Propagation();
@@ -116,7 +112,7 @@ private static void suiteDuPrograme2(Mesures mesure, Graph graph, int noeuds, do
                 + Toolkit.averageDegree(graph2)/propagation.moyenneCarre(graph2));
 
         // Simulation 1er cas on ne fait rien pour  empêcher l'épidémie
-/*
+
             propagation.desinfectNode(graph);
             propagation.infecteRandomNode(graph);
             propagation.propager(graph,1.0/7.0,1.0/14.0);
@@ -199,7 +195,7 @@ private static void suiteDuPrograme2(Mesures mesure, Graph graph, int noeuds, do
             Graph gBA3_3 = Propagation.removeNodeInfect(gBA3);
             System.out.println("Le seuil épidémique du réseau avec stratégies d'immunisation sélective  est : "
                     + Toolkit.averageDegree(gBA3_3)/propagation.moyenneCarre(gBA3_3));
-*/
+
     }
     
     //methode pour générer un reseau aleatoire
